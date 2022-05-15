@@ -38,7 +38,7 @@ endif
 CFLAGS ?= -O3
 CFLAGS += -Wall -Wno-unused-function -ansi -fPIC -pthread
 
-ifdef AFL_FUZZ
+ifdef AFL_INSTRUMENT
 	CC=afl-clang-fast
 else
 	CC=gcc

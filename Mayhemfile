@@ -1,0 +1,7 @@
+project: sonic
+target: sonic-fuzz
+
+
+cmds:
+  - cmd: /sonic/sonic -c -p 1.3 -r 2.0 -s 2.0 -v 1.5 @ /dev/null/
+    afl: true
