@@ -25,20 +25,25 @@ INCDIR=$(PREFIX)/include
 SONAME=-soname,
 SHARED_OPT=-shared
 LIB_NAME=libsonic.so
-LIB_TAG=.0.3.0
+LIB_TAG=0.2.0
 
 ifeq ($(UNAME), Darwin)
   SONAME=-install_name,$(LIBDIR)/
   SHARED_OPT=-dynamiclib
   LIB_NAME=libsonic.dylib
-  LIB_TAG=
+  LIB_TAG=0.2.0
 endif
 
 #CFLAGS=-Wall -Wno-unused-function -g -ansi -fPIC -pthread
 CFLAGS ?= -O3
 CFLAGS += -Wall -Wno-unused-function -ansi -fPIC -pthread
 
-CC=gcc
+ifdef AFL_FUZZ
+	CC=afl-clang-fast
+else
+	CC=gcc
+endif
+
 
 # Set NO_MALLOC=1 as a parameter to make to compile Sonic with static buffers
 # instead of calling malloc.  This is usefule primarily on microcontrollers.
