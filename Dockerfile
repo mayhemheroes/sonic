@@ -16,7 +16,7 @@ RUN AFL_INSTRUMENT=1 make
 
 # Create corpus
 RUN mkdir /corpus
-ADD seed.wav /corpus
+RUN cp /sonic/samples/*.wav /corpus
 
 ENTRYPOINT ["afl-fuzz", "-i", "/corpus", "-o", "/out"]
-CMD ["/sonic/sonic", "-c", "-p", "1.3", "-r", "2.0", "-s", "2.0", "-v", "1.5", "@@", "/dev/null"]
+CMD ["/sonic/sonic", "-c", "-p", "2", "-r", "2", "-s", "1.3", "-v", "2", "@@", "/dev/null"]
