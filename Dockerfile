@@ -14,9 +14,12 @@ RUN git checkout mayhem
 ## Build
 RUN AFL_INSTRUMENT=1 make
 
-# Create corpus
+## Build out corpus
+WORKDIR /
+RUN git clone https://github.com/dvyukov/go-fuzz-corpus.git
 RUN mkdir /corpus
 RUN cp /sonic/samples/*.wav /corpus
+RUN cp go-fuzz-corpus/elf/* /corpus
 
 ENTRYPOINT ["afl-fuzz", "-i", "/corpus", "-o", "/out"]
 CMD ["/sonic/sonic", "-c", "-p", "2", "-r", "2", "-s", "1.3", "-v", "2", "@@", "/dev/null"]
