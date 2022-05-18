@@ -19,9 +19,7 @@ WORKDIR /
 RUN git clone https://github.com/dvyukov/go-fuzz-corpus.git
 RUN mkdir /corpus
 RUN cp /sonic/samples/*.wav /corpus
-RUN cp go-fuzz-corpus/png/corpus/* /corpus
-RUN cp go-fuzz-corpus/jpeg/corpus/* /corpus
-RUN cp go-fuzz-corpus/smtp/corpus/* /corpus
+RUN cp go-fuzz-corpus/elf/corpus/* /corpus
 
 ENTRYPOINT ["afl-fuzz", "-i", "/corpus", "-o", "/out"]
-CMD ["/sonic/sonic", "-c", "-p", "2", "-r", "2", "-s", "1.3", "-v", "2", "@@", "/dev/null"]
+CMD ["/sonic/sonic", "@@", "/dev/null"]
