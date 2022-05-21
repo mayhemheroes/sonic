@@ -5,6 +5,6 @@ tests:
   - file://corpus
 
 cmds:
-  - cmd: /sonic @@ /dev/null
+  - cmd: /sonic/sonic @@ /dev/null
     afl: true
     max_length: 50000000
