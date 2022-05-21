@@ -12,14 +12,10 @@ WORKDIR /sonic
 RUN git checkout mayhem
 
 ## Build
-RUN AFL_INSTRUMENT=1 make
+RUN BUILD_FUZZ=1 make
 
-## Build out corpus
-#WORKDIR /
-#RUN git clone https://github.com/dvyukov/go-fuzz-corpus.git
-RUN mkdir /corpus
-#RUN cp /sonic/samples/*.wav /corpus
-#RUN cp go-fuzz-corpus/elf/corpus/* /corpus
+## Generate test corpus
+RUN mkdir /tests && echo seed > /tests/seed
 
-ENTRYPOINT ["afl-fuzz", "-i", "/corpus", "-o", "/out"]
+ENTRYPOINT ["afl-fuzz", "-i", "/tests", "-o", "/out"]
 CMD ["/sonic/sonic", "@@", "/dev/null"]
