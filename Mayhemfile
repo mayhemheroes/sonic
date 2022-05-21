@@ -1,7 +1,10 @@
+image: ghcr.io/capuanob/sonic:latest
 project: sonic
 target: sonic-fuzz
-
+tests:
+  - file://corpus
 
 cmds:
-  - cmd: /sonic/sonic -c -p 2 -r 2 -s 1.3 -v 2 @@ /dev/null/
+  - cmd: /sonic @@ /dev/null
     afl: true
+    max_length: 50000000
