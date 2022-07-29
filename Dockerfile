@@ -20,5 +20,6 @@ RUN mkdir /tests && echo seed > /tests/seed
 FROM aflplusplus/aflplusplus 
 COPY --from=builder /sonic/sonic /sonic
 
+RUN mkdir -p /tests && echo seed > /tests/seed
 ENTRYPOINT ["afl-fuzz", "-i", "/tests", "-o", "/out"]
 CMD ["/sonic", "@@", "/dev/null"]
