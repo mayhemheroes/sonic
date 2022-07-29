@@ -1,0 +1,9 @@
+project: sonic
+target: sonic-fuzz
+testsuite:
+  - file://corpus
+
+cmds:
+  - cmd: /sonic @@ /dev/null
+    afl: true
+    max_length: 50000000
