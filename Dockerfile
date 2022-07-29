@@ -7,9 +7,8 @@ RUN apt-get update && \
 
 ## Add source code to the build stage.
 WORKDIR /
-RUN git clone https://github.com/capuanob/sonic.git
+ADD . /sonic
 WORKDIR /sonic
-RUN git checkout mayhem
 
 ## Build
 RUN BUILD_FUZZ=1 make
@@ -17,5 +16,9 @@ RUN BUILD_FUZZ=1 make
 ## Generate test corpus
 RUN mkdir /tests && echo seed > /tests/seed
 
+## Package Stage
+FROM aflplusplus/aflplusplus 
+COPY --from=builder /sonic/sonic /sonic
+
 ENTRYPOINT ["afl-fuzz", "-i", "/tests", "-o", "/out"]
-CMD ["/sonic/sonic", "@@", "/dev/null"]
+CMD ["/sonic", "@@", "/dev/null"]
